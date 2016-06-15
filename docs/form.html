@@ -1,0 +1,165 @@
+<!DOCTYPE html><html><head><title>表单构建类</title><link rel="stylesheet" href="http://iwillhappy1314.github.io/wizhi-cms/dist/styles/main.css"><meta name="viewport" content="width=device-width, initial-scale=1"><script src="http://iwillhappy1314.github.io/wizhi-cms/dist/scripts/jquery.js"></script><script src="http://iwillhappy1314.github.io/wizhi-cms/dist/scripts/main.js"></script><style>.wrap{ width: 1200px; }
+</style></head><body id="main" data-spy="scroll" data-target="#nav"><header class="demo-header sep"><div class="wrap"><h1>Wizhi CMS WordPress 开发插件文档</h1><h3>Wizhi CMS 是一个帮助我们加快开发速度的 WordPress 插件</h3></div></header><div class="wrap"><div class="pure-g row"><div id="sidebar" class="pure-u-1 pure-u-md-1-5 pure-hide-md"><div class="col"><ul class="list"><li><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/types.html"><span>文章类型/分类法</span></a></li><li><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/form.html"><span>表单构建类</span></a></li><li><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/option.html"><span>设置选项构建类</span></a></li><li><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/post-meta.html"><span>文章元数据盒子构建类</span></a></li><li><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/term_meta.html"><span>分类项目元数据盒子构建类</span></a></li><li><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/user_meta.html"><span>表单构建类</span></a></li></ul></div></div><div id="primary" class="pure-u-1 pure-u-md-4-5"><div class="col typo"><h2>WizhiFormBuilder 类</h2><p>这是一个比较底层的类, 用来为文章、用户、分类项目等自定义字段提供支持, 当然也可以直接使用这个类。</p>
+<p>WizhiFormBuilder 支持4个参数</p>
+<ul>
+<li>$form_type: 字符串、表单类型, 可能的值为: post_meta、option、term_meta、user_meta</li>
+<li>$fields: 数组, 具体参考下方的示例</li>
+<li>$id: 如果表单类型是post_meta、term_meta 或 user_meta, 需要传入一个数据 ID 才能正确保存和读取数据, 根据数据类型的不同, 这个 ID 也不同</li>
+<li>$args: 数组, 附加参数, 构建各种不同的表单所需的附加参数, 具体在各种表单构建类中介绍</li>
+</ul>
+<h2><code>$fields</code> 表单数组示例</h2><p>插件还在积极开发中, 目前没有太多时间写详细的文档, 直接用一个数组演示各种表单类型的添加方法。</p>
+<pre><code class="language-php">$fields = [
+    [
+        &#39;type&#39;  =&gt; &#39;group&#39;,
+        &#39;label&#39; =&gt; &#39;群组1&#39;,
+    ],
+    [
+        &#39;type&#39;    =&gt; &#39;container&#39;,
+        &#39;name&#39;    =&gt; &#39;urlstext&#39;,
+        &#39;label&#39;   =&gt; &#39;表单组&#39;,
+        &#39;size&#39;    =&gt; &#39;80&#39;,
+        &#39;fields&#39; =&gt; [
+            [
+                &#39;type&#39;        =&gt; &#39;text&#39;,
+                &#39;name&#39;        =&gt; &#39;uname&#39;,
+                &#39;label&#39;       =&gt; &#39; 姓名&#39;,
+                &#39;size&#39;        =&gt; &#39;80&#39;,
+                &#39;placeholder&#39; =&gt; &#39;输入文本, 明天更美好&#39;,
+            ],
+            [
+                &#39;type&#39;        =&gt; &#39;text&#39;,
+                &#39;name&#39;        =&gt; &#39;email&#39;,
+                &#39;label&#39;       =&gt; &#39;邮件&#39;,
+                &#39;size&#39;        =&gt; &#39;80&#39;,
+                &#39;placeholder&#39; =&gt; &#39;输入文本, 明天更美好&#39;,
+            ],
+        ],
+    ],
+    [
+        &#39;type&#39;        =&gt; &#39;text&#39;,
+        &#39;name&#39;        =&gt; &#39;urls&#39;,
+        &#39;label&#39;       =&gt; &#39;文本&#39;,
+        &#39;size&#39;        =&gt; &#39;80&#39;,
+        &#39;placeholder&#39; =&gt; &#39;输入文本, 明天更美好&#39;,
+    ],
+    [
+        &#39;type&#39;        =&gt; &#39;email&#39;,
+        &#39;name&#39;        =&gt; &#39;urls_email&#39;,
+        &#39;label&#39;       =&gt; &#39;邮件&#39;,
+        &#39;size&#39;        =&gt; &#39;80&#39;,
+        &#39;placeholder&#39; =&gt; &#39;输入文本, 明天更美好&#39;,
+    ],
+    [
+        &#39;type&#39;        =&gt; &#39;url&#39;,
+        &#39;name&#39;        =&gt; &#39;urls_url&#39;,
+        &#39;label&#39;       =&gt; &#39;网址&#39;,
+        &#39;size&#39;        =&gt; &#39;80&#39;,
+        &#39;placeholder&#39; =&gt; &#39;输入文本, 明天更美好&#39;,
+    ],[
+        &#39;type&#39;        =&gt; &#39;number&#39;,
+        &#39;name&#39;        =&gt; &#39;urls_number&#39;,
+        &#39;label&#39;       =&gt; &#39;数字&#39;,
+        &#39;size&#39;        =&gt; &#39;80&#39;,
+        &#39;placeholder&#39; =&gt; &#39;输入文本, 明天更美好&#39;,
+    ],
+    [
+        &#39;type&#39;        =&gt; &#39;date&#39;,
+        &#39;name&#39;        =&gt; &#39;urls_date&#39;,
+        &#39;label&#39;       =&gt; &#39;日期&#39;,
+        &#39;size&#39;        =&gt; &#39;80&#39;,
+        &#39;placeholder&#39; =&gt; &#39;输入文本, 明天更美好&#39;,
+    ],
+    [
+        &#39;type&#39;        =&gt; &#39;month&#39;,
+        &#39;name&#39;        =&gt; &#39;urls_month&#39;,
+        &#39;label&#39;       =&gt; &#39;月份&#39;,
+        &#39;size&#39;        =&gt; &#39;80&#39;,
+        &#39;placeholder&#39; =&gt; &#39;输入文本, 明天更美好&#39;,
+    ],
+    [
+        &#39;type&#39;        =&gt; &#39;week&#39;,
+        &#39;name&#39;        =&gt; &#39;urls_week&#39;,
+        &#39;label&#39;       =&gt; &#39;周数&#39;,
+        &#39;size&#39;        =&gt; &#39;80&#39;,
+        &#39;placeholder&#39; =&gt; &#39;输入文本, 明天更美好&#39;,
+    ],
+    [
+        &#39;type&#39;        =&gt; &#39;time&#39;,
+        &#39;name&#39;        =&gt; &#39;urls_time&#39;,
+        &#39;label&#39;       =&gt; &#39;时间&#39;,
+        &#39;size&#39;        =&gt; &#39;80&#39;,
+        &#39;placeholder&#39; =&gt; &#39;输入文本, 明天更美好&#39;,
+    ],
+    [
+        &#39;type&#39;        =&gt; &#39;datetime-local&#39;,
+        &#39;name&#39;        =&gt; &#39;urls_datetime&#39;,
+        &#39;label&#39;       =&gt; &#39;本地时间日期&#39;,
+        &#39;size&#39;        =&gt; &#39;80&#39;,
+        &#39;placeholder&#39; =&gt; &#39;输入文本, 明天更美好&#39;,
+    ],
+    [
+        &#39;type&#39;        =&gt; &#39;search&#39;,
+        &#39;name&#39;        =&gt; &#39;urls_search&#39;,
+        &#39;label&#39;       =&gt; &#39;搜索&#39;,
+        &#39;size&#39;        =&gt; &#39;80&#39;,
+        &#39;placeholder&#39; =&gt; &#39;输入文本, 明天更美好&#39;,
+    ],
+    [
+        &#39;type&#39;        =&gt; &#39;color&#39;,
+        &#39;name&#39;        =&gt; &#39;urls_color&#39;,
+        &#39;label&#39;       =&gt; &#39;颜色&#39;,
+        &#39;size&#39;        =&gt; &#39;80&#39;,
+        &#39;placeholder&#39; =&gt; &#39;输入文本, 明天更美好&#39;,
+    ],
+    [
+        &#39;type&#39;        =&gt; &#39;upload&#39;,
+        &#39;name&#39;        =&gt; &#39;ups&#39;,
+        &#39;label&#39;       =&gt; &#39;上传文件&#39;,
+        &#39;size&#39;        =&gt; &#39;80&#39;,
+        &#39;placeholder&#39; =&gt; &#39;输入文本, 明天更美好&#39;,
+    ],
+    [
+        &#39;type&#39;        =&gt; &#39;textarea&#39;,
+        &#39;name&#39;        =&gt; &#39;text&#39;,
+        &#39;label&#39;       =&gt; &#39;文本&#39;,
+        &#39;size&#39;        =&gt; &#39;80&#39;,
+        &#39;placeholder&#39; =&gt; &#39;输入文本, 明天更美好&#39;,
+        &#39;attr&#39;        =&gt; [
+            &#39;rows&#39; =&gt; 5,
+            &#39;cols&#39; =&gt; 50,
+        ],
+    ],
+    [
+        &#39;type&#39;  =&gt; &#39;group&#39;,
+        &#39;label&#39; =&gt; &#39;群组2&#39;,
+    ],
+    [
+        &#39;type&#39;    =&gt; &#39;checkbox&#39;,
+        &#39;name&#39;    =&gt; &#39;checkbox&#39;,
+        &#39;label&#39;   =&gt; &#39;文本&#39;,
+        &#39;size&#39;    =&gt; &#39;80&#39;,
+        &#39;options&#39; =&gt; [
+            &#39;1&#39; =&gt; &#39;老大&#39;,
+            &#39;2&#39; =&gt; &#39;老二&#39;,
+        ],
+    ],
+    [
+        &#39;type&#39;  =&gt; &#39;group&#39;,
+        &#39;label&#39; =&gt; &#39;群组3&#39;,
+    ],
+    [
+        &#39;type&#39;    =&gt; &#39;select&#39;,
+        &#39;name&#39;    =&gt; &#39;pyype&#39;,
+        &#39;label&#39;   =&gt; &#39;文章类型&#39;,
+        &#39;default&#39; =&gt; &#39;post&#39;,
+        &#39;options&#39; =&gt; wizhi_get_post_types(),
+    ],
+    [
+        &#39;type&#39;    =&gt; &#39;select&#39;,
+        &#39;name&#39;    =&gt; &#39;thmb&#39;,
+        &#39;label&#39;   =&gt; &#39;缩略图大小&#39;,
+        &#39;default&#39; =&gt; &#39;full&#39;,
+        &#39;options&#39; =&gt; wizhi_get_image_sizes(),
+    ],
+];
+</code></pre></div></div></div></div><footer class="demo-footer"><div class="wrap text-center text--cap"><p>CopyRight 2016 wpzhiku</p></div></footer></body></html>
