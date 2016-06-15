@@ -61,7 +61,6 @@ button, input, select {
 @media screen {
     body, html {
         height: 100%;
-        overflow: hidden
     }
 }
 
