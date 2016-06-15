@@ -561,12 +561,6 @@ body {
     clear: both
 }
 
-@media screen and (min-width: 769px) {
-    .article-inner {
-        margin-right: 220px
-    }
-}
-
 .article {
     float: left;
     width: 100%;
