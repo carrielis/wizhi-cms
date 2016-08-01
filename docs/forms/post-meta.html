@@ -13,6 +13,34 @@
 ];
 </code></pre>
 <h3>最后、直接实例化<code>WizhiPostMetabox</code> 类就可以了</h3><pre><code class="language-php">new WizhiPostMetabox( &#39;extra&#39;, &#39;文章附加数据&#39;, $fields, $args_post );
+</code></pre>
+<h2>使用辅助函数获取文章类型和分类法选项</h2><p>在 WordPress 中，元素的加载有<a href="https://codex.wordpress.org/Plugin_API/Action_Reference">先后顺序</a>，在前面的 action 中获取后面 action 中的数据就获取不到的。例如：</p>
+<p>直接在 WordPress 主题中使用下面的辅助函数获取分类法项目选项，就会报一个 “分类法无效” 的错误。因为分类法是在<code>init</code>中注册的，这个action 运行在主题 function.php 之后。</p>
+<pre><code class="language-php">wizhi_get_term_list(&#39;thelocal&#39;)
+</code></pre>
+<p>这时候，我们挂载这个函数到 <code>init</code> 上面。如下：</p>
+<pre><code class="language-php">add_action( &#39;init&#39;, &#39;show_select&#39; );
+function show_select() {
+
+    $fields = [
+        [
+            &#39;type&#39;  =&gt; &#39;select&#39;,
+            &#39;name&#39;  =&gt; &#39;cat&#39;,
+            &#39;label&#39; =&gt; &#39;分类目录&#39;,
+            &#39;size&#39;  =&gt; &#39;80&#39;,
+            &#39;options&#39; =&gt; wizhi_get_term_list(&#39;category&#39;)
+        ],
+        ...
+    ];
+
+    $args = [
+        &#39;post_type&#39; =&gt; [ &#39;post&#39; ],
+        &#39;context&#39;   =&gt; &#39;normal&#39;,
+        &#39;priority&#39;  =&gt; &#39;high&#39;,
+    ];
+
+    new WizhiPostMetabox( &#39;fees-attrs&#39;, &#39;运费数据&#39;, $fields, $args );
+}
 </code></pre></div><div id="disqus_thread"><script>(function () {
     var d = document, s = d.createElement('script');
     s.src = '//wizhicms.disqus.com/embed.js';
@@ -20,4 +48,4 @@
     (d.head || d.body).appendChild(s);
 })();
 
-</script></div></div></div></div></article><aside id="sidebar" role="navigation"><div class="inner"><strong class="sidebar-title"><span>文章类型/分类法</span></strong><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/types.html" class="sidebar-link"><span>文章类型</span></a><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/taxonomy.html" class="sidebar-link"><span>分类方法</span></a><strong class="sidebar-title"><span>表单构建类</span></strong><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/forms/form.html" class="sidebar-link"><span>设置选项构建类</span></a><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/forms/option.html" class="sidebar-link"><span>设置选项</span></a><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/forms/post-meta.html" class="sidebar-link"><span>文章元数据</span></a><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/forms/term-meta.html" class="sidebar-link"><span>分类法元数据</span></a><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/forms/user-meta.html" class="sidebar-link"><span>用户元数据</span></a><strong class="sidebar-title"><span>简码</span></strong><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/shortcodes/page.html" class="sidebar-link"><span>页面内容</span></a><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/shortcodes/loop.html" class="sidebar-link"><span>文章循环</span></a></div></aside></div></div></div><footer id="footer"><div class="wrapper"><div class="inner"><div id="footer-copyright">© 2016<a href="https://www.wpzhiku.com/" target="_blank">WordPress 智库</a><br>Live in China, WordPress Developer</div><div id="footer-links"><a href="https://github.com/iwillhappy1314" target="_blank" class="footer-link">Profile</a><a href="https://github.com/iwillhappy1314/wizhi-cms" target="_blank" class="footer-link">Github</a></div></div></div></footer><script id="dsq-count-scr" src="//wizhicms.disqus.com/count.js" async=""></script></body></html>
+</script></div></div></div></div></article><aside id="sidebar" role="navigation"><div class="inner"><strong class="sidebar-title"><span>文章类型/分类法</span></strong><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/types.html" class="sidebar-link"><span>文章类型</span></a><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/taxonomy.html" class="sidebar-link"><span>分类方法</span></a><strong class="sidebar-title"><span>辅助函数</span></strong><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/helper/options.html" class="sidebar-link"><span>表单选项</span></a><strong class="sidebar-title"><span>表单构建类</span></strong><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/forms/form.html" class="sidebar-link"><span>设置选项构建类</span></a><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/forms/option.html" class="sidebar-link"><span>设置选项</span></a><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/forms/post-meta.html" class="sidebar-link"><span>文章元数据</span></a><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/forms/term-meta.html" class="sidebar-link"><span>分类法元数据</span></a><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/forms/user-meta.html" class="sidebar-link"><span>用户元数据</span></a><strong class="sidebar-title"><span>简码</span></strong><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/shortcodes/page.html" class="sidebar-link"><span>页面内容</span></a><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/shortcodes/loop.html" class="sidebar-link"><span>文章循环</span></a></div></aside></div></div></div><footer id="footer"><div class="wrapper"><div class="inner"><div id="footer-copyright">© 2016<a href="https://www.wpzhiku.com/" target="_blank">WordPress 智库</a><br>Live in China, WordPress Developer</div><div id="footer-links"><a href="https://github.com/iwillhappy1314" target="_blank" class="footer-link">Profile</a><a href="https://github.com/iwillhappy1314/wizhi-cms" target="_blank" class="footer-link">Github</a></div></div></div></footer><script id="dsq-count-scr" src="//wizhicms.disqus.com/count.js" async=""></script></body></html>

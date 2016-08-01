@@ -7,14 +7,35 @@
 </ul>
 <h3>添加文章类型和分类法的方法</h3><p>添加之前，首先判断功能时是否存在，以免禁用或未安装插件时出现错误。</p>
 <p>其中<code>pro</code>是保存在数据库中的文章类型的名称，通过这个字段区分不同的文章类型。‘产品’是显示在后台菜单中的名称。</p>
-<pre><code class="language-php">if ( function_exists (&quot;wizhi_create_types&quot;) and function_exists (&quot;wizhi_create_taxs&quot;) ) {
-        wizhi_create_types( &quot;pro&quot;, &quot;产品&quot;, array( &#39;title&#39;, &#39;editor&#39;, &#39;author&#39;, &#39;thumbnail&#39;, &#39;comments&#39; ), true );
-        wizhi_create_taxs( &quot;procat&quot;, &#39;pro&#39;, &quot;产品分类&quot; );
-
-        wizhi_create_types( &quot;slider&quot;, &quot;幻灯&quot;, array( &#39;title&#39;, &#39;thumbnail&#39; ), true );
-}
+<h3>获取注册的文章类型</h3><pre><code>wizhi_get_post_types()
+</code></pre><h3>获取文章类型中的文章</h3><pre><code>wizhi_get_post_list( $type = &quot;post&quot;, $id = &quot;false&quot; )
+</code></pre><ul>
+<li>$type: 分类方法</li>
+<li>$id：是否在选项名称中显示文章 ID</li>
+</ul>
+<h3>获取自定义分类法列表</h3><pre><code>wizhi_get_taxonomy_list( $type = &quot;taxonomy&quot; )
+</code></pre><h3>获取注册的所有自定义分类法</h3><pre><code>wizhi_get_taxonomies()
+</code></pre><h3>获取某分类法中添加的所有分类项目</h3><pre><code>wizhi_get_term_list($taxonomy = &#39;post_tag&#39;)
+</code></pre><ul>
+<li>$taxonomy：分类法名称</li>
+</ul>
+<h3>获取根分类</h3><pre><code class="language-php">wizhi_get_term_root_id()
 </code></pre>
-<p>把以上代码加入到主题的function.php即可</p></div><div id="disqus_thread"><script>(function () {
+<h3>获取存档标题</h3><pre><code class="language-php">wizhi_get_the_archive_title()
+</code></pre>
+<h3>获取分类法列表模板</h3><pre><code class="language-php">wizhi_get_the_archive_title()
+</code></pre>
+<h3>判断文章是否在父级分类中</h3><pre><code>post_is_in_descendant_category($cats, $_post = null)
+</code></pre><ul>
+<li>cats： 父级分类 ID</li>
+<li>$_post ：文章 ID</li>
+</ul>
+<h3>生成订单号</h3><pre><code>order_no()
+</code></pre><h3>获取缩略图尺寸列表</h3><pre><code>wizhi_get_image_sizes()
+</code></pre><h2>固定数据</h2><h3>获取排序方法选项</h3><pre><code>wizhi_get_display_order()
+</code></pre><h3>获取排序方向选项</h3><pre><code>wizhi_get_display_direction()
+</code></pre><h3>获取颜色选项</h3><pre><code>wizhi_color_option()
+</code></pre></div><div id="disqus_thread"><script>(function () {
     var d = document, s = d.createElement('script');
     s.src = '//wizhicms.disqus.com/embed.js';
     s.setAttribute('data-timestamp', +new Date());
