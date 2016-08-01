@@ -16,6 +16,10 @@ body {
     background: #fff
 }
 
+pre{
+    overflow: auto;
+}
+
 ol, ul {
     list-style: none
 }
