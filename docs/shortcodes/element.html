@@ -1,7 +1,33 @@
 <!DOCTYPE html><html><head><title>Wizhi CMS 文档</title><link rel="stylesheet" href="http://iwillhappy1314.github.io/wizhi-cms/style.css"><meta name="viewport" content="width=device-width, initial-scale=1"><style>.wrap {
     width: 1200px;
 }
-</style></head><body id="main" data-spy="scroll" data-target="#nav"><header id="header" class="wrapper"><div id="header-inner" class="inner"><h1 id="logo-wrap"><a id="logo" href="/wizhi-cms/">Wizhi CMS</a></h1><nav id="main-nav"><a href="/wizhi-cms/docs/" class="main-nav-link">文档</a><a href="https://github.com/iwillhappy1314/wizhi-cms" class="main-nav-link">代码</a><a target="_blank" href="https://github.com/iwillhappy1314/wizhi-ui" class="main-nav-link">UI 库</a><a target="_blank" href="https://github.com/iwillhappy1314/front" class="main-nav-link">前端工具</a><a target="_blank" href="https://github.com/iwillhappy1314/enter" class="main-nav-link">主题框架</a></nav></div></header><div id="content-wrap"><div id="content" class="wrapper"><div id="content-inner"><article itemscope="" itemtype="http://schema.org/Article" class="article-container"><div class="article-inner"><div class="article"><div class="inner"><header class="article-header"><span>Wizhi CMS 文档</span></header><div itemprop="articleBody" class="article-content"><h1>页面未找到</h1><h3>哎呦, 这个页面不知道去哪儿了。</h3></div><div id="disqus_thread"><script>(function () {
+</style></head><body id="main" data-spy="scroll" data-target="#nav"><header id="header" class="wrapper"><div id="header-inner" class="inner"><h1 id="logo-wrap"><a id="logo" href="/wizhi-cms/">Wizhi CMS</a></h1><nav id="main-nav"><a href="/wizhi-cms/docs/" class="main-nav-link">文档</a><a href="https://github.com/iwillhappy1314/wizhi-cms" class="main-nav-link">代码</a><a target="_blank" href="https://github.com/iwillhappy1314/wizhi-ui" class="main-nav-link">UI 库</a><a target="_blank" href="https://github.com/iwillhappy1314/front" class="main-nav-link">前端工具</a><a target="_blank" href="https://github.com/iwillhappy1314/enter" class="main-nav-link">主题框架</a></nav></div></header><div id="content-wrap"><div id="content" class="wrapper"><div id="content-inner"><article itemscope="" itemtype="http://schema.org/Article" class="article-container"><div class="article-inner"><div class="article"><div class="inner"><header class="article-header"><span>Wizhi CMS 文档</span></header><div itemprop="articleBody" class="article-content"><p>在页面中显示常用的 UI 元素</p>
+<h2>显示分割线</h2><pre><code class="language-php">echo do_shortcode(&#39;[divider type=&quot;solid&quot;]&#39;);
+</code></pre>
+<p><em>简码参数</em></p>
+<ul>
+<li><code>type</code>: 分割线类型</li>
+</ul>
+<h2>显示模块标题</h2><pre><code class="language-php">echo do_shortcode(&#39;[heading type=&quot;background&quot; content=&quot;这是二级标题&quot;]&#39;);
+</code></pre>
+<ul>
+<li><code>type</code>: 标题类型</li>
+<li><code>content</code>：标题文字内容</li>
+</ul>
+<h2>显示信息框</h2><pre><code class="language-php">echo do_shortcode(&#39;[alert type=&quot;success&quot; content=&quot;这是二级标题&quot;]&#39;);
+</code></pre>
+<ul>
+<li><code>type</code>: 信息框类型，目前支持信息、警告、提醒、成功四种类型</li>
+<li><code>content</code>：信息框里面的文章</li>
+</ul>
+<h2>显示按钮</h2><pre><code class="language-php">echo do_shortcode(&#39;[button type=&quot;success&quot; size=&#39;&#39; text=&quot;这是链接&quot; url=&quot;http://www.baidu.com&quot;]&#39;);
+</code></pre>
+<ul>
+<li><code>type</code>: 按钮类型、显示为不同的颜色，目前支持信息、警告、提醒、成功四种类型</li>
+<li><code>size</code>: 按钮尺寸</li>
+<li><code>text</code>: 按钮文字</li>
+<li><code>url</code>: 按钮链接</li>
+</ul></div><div id="disqus_thread"><script>(function () {
     var d = document, s = d.createElement('script');
     s.src = '//wizhicms.disqus.com/embed.js';
     s.setAttribute('data-timestamp', +new Date());

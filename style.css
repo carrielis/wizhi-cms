@@ -342,7 +342,6 @@ body {
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
-    display: box;
     display: flex;
     -webkit-box-orient: vertical;
     -moz-box-orient: vertical;
@@ -755,7 +754,7 @@ a.article-title:hover {
 @media print {
     .article-content a {
         color: #444;
-        text-decoration: underline
+        text-decoration: underline;
     }
 
     .article-content a:after {
@@ -823,7 +822,7 @@ a.article-title:hover {
 }
 
 .article-content blockquote footer cite a {
-    color: color-grey
+    color: grey;
 }
 
 .article-content .note.tip {
@@ -998,7 +997,6 @@ a.article-title:hover {
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
-    display: box;
     display: flex;
     -webkit-box-orient: vertical;
     -moz-box-orient: vertical;
