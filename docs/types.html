@@ -8,7 +8,7 @@
 <h3>添加文章类型和分类法的方法</h3><p>添加之前，首先判断功能时是否存在，以免禁用或未安装插件时出现错误。</p>
 <p>其中<code>pro</code>是保存在数据库中的文章类型的名称，通过这个字段区分不同的文章类型。‘产品’是显示在后台菜单中的名称。</p>
 <pre><code class="language-php">if ( function_exists (&quot;wizhi_create_types&quot;) and function_exists (&quot;wizhi_create_taxs&quot;) ) {
-        wizhi_create_types( &quot;pro&quot;, &quot;产品&quot;, array( &#39;title&#39;, &#39;editor&#39;, &#39;author&#39;, &#39;thumbnail&#39;, &#39;comments&#39; ), true );
+        wizhi_create_types( &quot;pro&quot;, &quot;产品&quot;, array( &#39;title&#39;, &#39;editor&#39;, &#39;author&#39;, &#39;thumbnail&#39;, custom-fields&#39;, &#39;comments&#39; ), true );
         wizhi_create_taxs( &quot;procat&quot;, &#39;pro&#39;, &quot;产品分类&quot; );
 
         wizhi_create_types( &quot;slider&quot;, &quot;幻灯&quot;, array( &#39;title&#39;, &#39;thumbnail&#39; ), true );
