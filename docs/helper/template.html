@@ -5,10 +5,45 @@
 </code></pre>
 <h3>获取存档标题</h3><pre><code class="language-php">wizhi_get_the_archive_title()
 </code></pre>
-<h3>判断文章是否在父级分类中</h3><pre><code>post_is_in_descendant_category($cats, $_post = null)
-</code></pre><ul>
+<h3>判断文章是否在父级分类中</h3><pre><code class="language-php">post_is_in_descendant_category($cats, $_post = null)
+</code></pre>
+<ul>
 <li>cats： 父级分类 ID</li>
 <li>$_post ：文章 ID</li>
 </ul>
-<h3>生成订单号</h3><pre><code>order_no()
+<h3>生成订单号</h3><pre><code class="language-php">order_no()
+</code></pre>
+<h3>分页代码</h3><pre><code class="language-php">if( function_exists( &#39;wizhi_bootstrap_pagination&#39; ) ){ wizhi_bootstrap_pagination(); }
+</code></pre>
+<h3>BootStrap 导航菜单</h3><pre><code class="language-php+HTML">&lt;nav id=&quot;site-navigation&quot; class=&quot;navbar navbar-inverse main-navigation&quot;&gt;
+  &lt;div class=&quot;row container-fluid&quot;&gt;
+
+    &lt;div class=&quot;navbar-header&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;navbar-toggle collapsed&quot; data-toggle=&quot;collapse&quot;
+      data-target=&quot;#navbar-main&quot; aria-expanded=&quot;false&quot;&gt;
+      &lt;span class=&quot;sr-only&quot;&gt;Toggle navigation&lt;/span&gt;
+      &lt;span class=&quot;icon-bar&quot;&gt;&lt;/span&gt;
+      &lt;span class=&quot;icon-bar&quot;&gt;&lt;/span&gt;
+      &lt;span class=&quot;icon-bar&quot;&gt;&lt;/span&gt;
+      &lt;/button&gt;
+      &lt;h1 class=&quot;site-title&quot;&gt;
+        &lt;a class=&quot;navbar-brand&quot; href=&quot;&lt;?php echo esc_url(home_url(&#39;/&#39;)); ?&gt;&quot; rel=&quot;home&quot;&gt;&lt;?php bloginfo(&#39;name&#39;); ?&gt;&lt;/a&gt;
+      &lt;/h1&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;collapse navbar-collapse&quot; id=&quot;navbar-main&quot;&gt;
+      &lt;?php
+      if (has_nav_menu(&#39;primary&#39;)) :
+        wp_nav_menu([
+          &#39;theme_location&#39; =&gt; &#39;primary&#39;,
+          &#39;menu_class&#39; =&gt; &#39;nav navbar-nav navbar-right&#39;,
+          &#39;container&#39; =&gt; &#39;ul&#39;,
+          &#39;walker&#39; =&gt; new wizhi_bootstrap_navwalker,
+        ]);
+      endif;
+      ?&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+&lt;/nav&gt;
 </code></pre></div></div></div></div></article><aside id="sidebar" role="navigation"><div class="inner"><strong class="sidebar-title"><span>文章类型/分类法</span></strong><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/types.html" class="sidebar-link"><span>文章类型</span></a><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/taxonomy.html" class="sidebar-link"><span>分类方法</span></a><strong class="sidebar-title"><span>ORM</span></strong><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/orm.html" class="sidebar-link"><span>RedbeanPHP ORM</span></a><strong class="sidebar-title"><span>路由</span></strong><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/router.html" class="sidebar-link"><span>路由系统</span></a><strong class="sidebar-title"><span>辅助函数</span></strong><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/helper/options.html" class="sidebar-link"><span>表单选项</span></a><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/helper/template.html" class="sidebar-link"><span>模板函数</span></a><strong class="sidebar-title"><span>表单构建类</span></strong><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/forms/form.html" class="sidebar-link"><span>设置选项构建类</span></a><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/forms/option.html" class="sidebar-link"><span>设置选项</span></a><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/forms/post-meta.html" class="sidebar-link"><span>文章元数据</span></a><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/forms/term-meta.html" class="sidebar-link"><span>分类法元数据</span></a><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/forms/user-meta.html" class="sidebar-link"><span>用户元数据</span></a><strong class="sidebar-title"><span>简码</span></strong><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/shortcodes/loop.html" class="sidebar-link"><span>文章循环</span></a><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/shortcodes/list.html" class="sidebar-link"><span>文章标题列表</span></a><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/shortcodes/media.html" class="sidebar-link"><span>图文文章列表</span></a><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/shortcodes/slider.html" class="sidebar-link"><span>幻灯片</span></a><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/shortcodes/page.html" class="sidebar-link"><span>页面内容</span></a><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/shortcodes/element.html" class="sidebar-link"><span>UI 元素</span></a></div></aside></div></div></div><footer id="footer"><div class="wrapper"><div class="inner"><div id="footer-copyright">© 2016<a href="https://www.wpzhiku.com/" target="_blank">WordPress 智库 | Live in China, WordPress Developer</a></div><div id="footer-links"><a href="https://github.com/iwillhappy1314" target="_blank" class="footer-link">Profile</a><a href="https://github.com/iwillhappy1314/wizhi-cms" target="_blank" class="footer-link">Github</a></div></div></div></footer></body></html>
