@@ -1,17 +1,26 @@
 <!DOCTYPE html><html><head><title>Wizhi CMS 文档</title><link rel="stylesheet" href="http://iwillhappy1314.github.io/wizhi-cms/style.css"><meta name="viewport" content="width=device-width, initial-scale=1"><style>.wrap {
     width: 1200px;
 }
-</style></head><body id="main" data-spy="scroll" data-target="#nav"><header id="header" class="wrapper"><div id="header-inner" class="inner"><h1 id="logo-wrap"><a id="logo" href="/wizhi-cms/">Wizhi CMS</a></h1><nav id="main-nav"><a href="/wizhi-cms/" class="main-nav-link">文档</a><a href="https://github.com/iwillhappy1314/wizhi-cms" class="main-nav-link">代码</a><a target="_blank" href="https://github.com/iwillhappy1314/wizhi-ui" class="main-nav-link">UI 库</a><a target="_blank" href="https://github.com/iwillhappy1314/front" class="main-nav-link">前端工具</a><a target="_blank" href="https://github.com/iwillhappy1314/enter" class="main-nav-link">主题框架</a></nav></div></header><div id="content-wrap"><div id="content" class="wrapper"><div id="content-inner"><article itemscope="" itemtype="http://schema.org/Article" class="article-container"><div class="article-inner"><div class="article"><div class="inner"><header class="article-header"><span>Wizhi CMS 文档</span></header><div itemprop="articleBody" class="article-content"><h2>快速添加设置选项</h2><h3>为什么要使用文章类型和分类法</h3><ul>
-<li>每种类型的文章都会有不同的字段，使用文档类型区分开，上传的时候问题比较少。</li>
-<li>显示子菜单的时候比较方便</li>
+</style></head><body id="main" data-spy="scroll" data-target="#nav"><header id="header" class="wrapper"><div id="header-inner" class="inner"><h1 id="logo-wrap"><a id="logo" href="/wizhi-cms/">Wizhi CMS</a></h1><nav id="main-nav"><a href="/wizhi-cms/" class="main-nav-link">文档</a><a href="https://github.com/iwillhappy1314/wizhi-cms" class="main-nav-link">代码</a><a target="_blank" href="https://github.com/iwillhappy1314/wizhi-ui" class="main-nav-link">UI 库</a><a target="_blank" href="https://github.com/iwillhappy1314/front" class="main-nav-link">前端工具</a><a target="_blank" href="https://github.com/iwillhappy1314/enter" class="main-nav-link">主题框架</a></nav></div></header><div id="content-wrap"><div id="content" class="wrapper"><div id="content-inner"><article itemscope="" itemtype="http://schema.org/Article" class="article-container"><div class="article-inner"><div class="article"><div class="inner"><header class="article-header"><span>Wizhi CMS 文档</span></header><div itemprop="articleBody" class="article-content"><h2>快速添加设置选项</h2><h3>第一步: 定义设置选项字段</h3><p>这里字段定义数组和 form 中的是一样的, 代码就不再复制了。</p>
+<pre><code class="language-php">$fields = [
+    ...
+]
+</code></pre>
+<h3>第二步: 设置选项页面参数</h3><pre><code class="language-php">$args = [
+        &#39;parent&#39; =&gt; &#39;options-general.php,
+        &#39;slug&#39;   =&gt; &quot;theme_settings&quot;,
+        &#39;label&#39;  =&gt; __( &#39;存档设置&#39;, &#39;wizhi&#39; ),
+        &#39;title&#39;  =&gt; __( &#39;存档设置&#39;, &#39;wizhi&#39; ),
+    ];
+</code></pre>
+<ul>
+<li><code>parent</code>: 设置选项出现的父级页面</li>
+<li><code>slug</code>: 设置选项的 URL 参数</li>
+<li><code>label</code> : 设置选项的菜单名称</li>
+<li><code>title</code> : 设置选项页面的标题</li>
 </ul>
-<h3>添加文章类型和分类法的方法</h3><p>添加之前，首先判断功能时是否存在，以免禁用或未安装插件时出现错误。</p>
-<p>其中<code>pro</code>是保存在数据库中的文章类型的名称，通过这个字段区分不同的文章类型。‘产品’是显示在后台菜单中的名称。</p>
-<pre><code class="language-php">if ( function_exists (&quot;wizhi_create_types&quot;) and function_exists (&quot;wizhi_create_taxs&quot;) ) {
-        wizhi_create_types( &quot;pro&quot;, &quot;产品&quot;, array( &#39;title&#39;, &#39;editor&#39;, &#39;author&#39;, &#39;thumbnail&#39;, &#39;comments&#39; ), true );
-        wizhi_create_taxs( &quot;procat&quot;, &#39;pro&#39;, &quot;产品分类&quot; );
-
-        wizhi_create_types( &quot;slider&quot;, &quot;幻灯&quot;, array( &#39;title&#39;, &#39;thumbnail&#39; ), true );
+<h3>第三步: 实例化设置选项页面</h3><pre><code class="language-php">if ( class_exists( &#39;WizhiOptionPage&#39; ) ) {
+    new WizhiOptionPage( $fields, $args );
 }
 </code></pre>
 <p>把以上代码加入到主题的function.php即可</p></div></div></div></div></article><aside id="sidebar" role="navigation"><div class="inner"><strong class="sidebar-title"><span>文章类型/分类法</span></strong><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/types.html" class="sidebar-link"><span>文章类型</span></a><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/taxonomy.html" class="sidebar-link"><span>分类方法</span></a><strong class="sidebar-title"><span>ORM</span></strong><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/orm.html" class="sidebar-link"><span>RedbeanPHP ORM</span></a><strong class="sidebar-title"><span>路由</span></strong><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/router.html" class="sidebar-link"><span>路由系统</span></a><strong class="sidebar-title"><span>辅助函数</span></strong><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/helper/options.html" class="sidebar-link"><span>表单选项</span></a><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/helper/template.html" class="sidebar-link"><span>模板函数</span></a><strong class="sidebar-title"><span>表单构建类</span></strong><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/forms/form.html" class="sidebar-link"><span>设置选项构建类</span></a><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/forms/option.html" class="sidebar-link"><span>设置选项</span></a><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/forms/post-meta.html" class="sidebar-link"><span>文章元数据</span></a><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/forms/term-meta.html" class="sidebar-link"><span>分类法元数据</span></a><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/forms/user-meta.html" class="sidebar-link"><span>用户元数据</span></a><strong class="sidebar-title"><span>简码</span></strong><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/shortcodes/loop.html" class="sidebar-link"><span>文章循环</span></a><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/shortcodes/list.html" class="sidebar-link"><span>文章标题列表</span></a><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/shortcodes/media.html" class="sidebar-link"><span>图文文章列表</span></a><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/shortcodes/slider.html" class="sidebar-link"><span>幻灯片</span></a><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/shortcodes/page.html" class="sidebar-link"><span>页面内容</span></a><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/shortcodes/element.html" class="sidebar-link"><span>UI 元素</span></a></div></aside></div></div></div><footer id="footer"><div class="wrapper"><div class="inner"><div id="footer-copyright">© 2016<a href="https://www.wpzhiku.com/" target="_blank">WordPress 智库 | Live in China, WordPress Developer</a></div><div id="footer-links"><a href="https://github.com/iwillhappy1314" target="_blank" class="footer-link">Profile</a><a href="https://github.com/iwillhappy1314/wizhi-cms" target="_blank" class="footer-link">Github</a></div></div></div></footer></body></html>

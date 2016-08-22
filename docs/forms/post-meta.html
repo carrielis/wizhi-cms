@@ -1,18 +1,25 @@
 <!DOCTYPE html><html><head><title>Wizhi CMS 文档</title><link rel="stylesheet" href="http://iwillhappy1314.github.io/wizhi-cms/style.css"><meta name="viewport" content="width=device-width, initial-scale=1"><style>.wrap {
     width: 1200px;
 }
-</style></head><body id="main" data-spy="scroll" data-target="#nav"><header id="header" class="wrapper"><div id="header-inner" class="inner"><h1 id="logo-wrap"><a id="logo" href="/wizhi-cms/">Wizhi CMS</a></h1><nav id="main-nav"><a href="/wizhi-cms/" class="main-nav-link">文档</a><a href="https://github.com/iwillhappy1314/wizhi-cms" class="main-nav-link">代码</a><a target="_blank" href="https://github.com/iwillhappy1314/wizhi-ui" class="main-nav-link">UI 库</a><a target="_blank" href="https://github.com/iwillhappy1314/front" class="main-nav-link">前端工具</a><a target="_blank" href="https://github.com/iwillhappy1314/enter" class="main-nav-link">主题框架</a></nav></div></header><div id="content-wrap"><div id="content" class="wrapper"><div id="content-inner"><article itemscope="" itemtype="http://schema.org/Article" class="article-container"><div class="article-inner"><div class="article"><div class="inner"><header class="article-header"><span>Wizhi CMS 文档</span></header><div itemprop="articleBody" class="article-content"><h2>快速添加文章自定义字段</h2><h3>定义表单字段</h3><p>这里字段定义数组和 form 中的是一样的, 代码就不再复制了。</p>
+</style></head><body id="main" data-spy="scroll" data-target="#nav"><header id="header" class="wrapper"><div id="header-inner" class="inner"><h1 id="logo-wrap"><a id="logo" href="/wizhi-cms/">Wizhi CMS</a></h1><nav id="main-nav"><a href="/wizhi-cms/" class="main-nav-link">文档</a><a href="https://github.com/iwillhappy1314/wizhi-cms" class="main-nav-link">代码</a><a target="_blank" href="https://github.com/iwillhappy1314/wizhi-ui" class="main-nav-link">UI 库</a><a target="_blank" href="https://github.com/iwillhappy1314/front" class="main-nav-link">前端工具</a><a target="_blank" href="https://github.com/iwillhappy1314/enter" class="main-nav-link">主题框架</a></nav></div></header><div id="content-wrap"><div id="content" class="wrapper"><div id="content-inner"><article itemscope="" itemtype="http://schema.org/Article" class="article-container"><div class="article-inner"><div class="article"><div class="inner"><header class="article-header"><span>Wizhi CMS 文档</span></header><div itemprop="articleBody" class="article-content"><h2>快速添加文章自定义字段</h2><h3>第一步: 定义表单字段</h3><p>这里字段定义数组和 form 中的是一样的, 代码就不再复制了。</p>
 <pre><code class="language-php">$fields = [
     ...
 ]
 </code></pre>
-<h3>文章元数据盒子需要用到的附加数据</h3><pre><code class="language-php">$args_post = [
+<h3>第二步: 设置元数据盒子显示参数</h3><pre><code class="language-php">$args_post = [
     &#39;post_type&#39; =&gt; [ &#39;post&#39;, &#39;page&#39; ],
     &#39;context&#39;   =&gt; &#39;normal&#39;,
     &#39;priority&#39;  =&gt; &#39;high&#39;,
 ];
 </code></pre>
-<h3>最后、直接实例化<code>WizhiPostMetabox</code> 类就可以了</h3><pre><code class="language-php">new WizhiPostMetabox( &#39;extra&#39;, &#39;文章附加数据&#39;, $fields, $args_post );
+<ul>
+<li><code>post_type</code>: 元数据盒子支持的文章类型</li>
+<li><code>context</code>: 元数据盒子出现的位置</li>
+<li><code>priority</code> : 元数据盒子的优先级</li>
+</ul>
+<h3>第三步: 实例化<code>WizhiPostMetabox</code> 类就可以了</h3><pre><code class="language-php">if ( class_exists( &#39;WizhiPostMetabox&#39; ) ) {
+    new WizhiPostMetabox( &#39;extra&#39;, &#39;文章附加数据&#39;, $fields, $args_post );
+}
 </code></pre>
 <h2>使用辅助函数获取文章类型和分类法选项</h2><p>在 WordPress 中，元素的加载有<a href="https://codex.wordpress.org/Plugin_API/Action_Reference">先后顺序</a>，在前面的 action 中获取后面 action 中的数据就获取不到的。例如：</p>
 <p>直接在 WordPress 主题中使用下面的辅助函数获取分类法项目选项，就会报一个 “分类法无效” 的错误。因为分类法是在<code>init</code>中注册的，这个action 运行在主题 function.php 之后。</p>
@@ -30,7 +37,6 @@ function show_select() {
             &#39;size&#39;  =&gt; &#39;80&#39;,
             &#39;options&#39; =&gt; wizhi_get_term_list(&#39;category&#39;)
         ],
-        ...
     ];
 
     $args = [
@@ -39,6 +45,9 @@ function show_select() {
         &#39;priority&#39;  =&gt; &#39;high&#39;,
     ];
 
-    new WizhiPostMetabox( &#39;fees-attrs&#39;, &#39;运费数据&#39;, $fields, $args );
+    if ( class_exists( &#39;WizhiPostMetabox&#39; ) ) {
+        new WizhiPostMetabox( &#39;fees-attrs&#39;, &#39;运费数据&#39;, $fields, $args );
+    }
+
 }
 </code></pre></div></div></div></div></article><aside id="sidebar" role="navigation"><div class="inner"><strong class="sidebar-title"><span>文章类型/分类法</span></strong><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/types.html" class="sidebar-link"><span>文章类型</span></a><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/taxonomy.html" class="sidebar-link"><span>分类方法</span></a><strong class="sidebar-title"><span>ORM</span></strong><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/orm.html" class="sidebar-link"><span>RedbeanPHP ORM</span></a><strong class="sidebar-title"><span>路由</span></strong><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/router.html" class="sidebar-link"><span>路由系统</span></a><strong class="sidebar-title"><span>辅助函数</span></strong><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/helper/options.html" class="sidebar-link"><span>表单选项</span></a><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/helper/template.html" class="sidebar-link"><span>模板函数</span></a><strong class="sidebar-title"><span>表单构建类</span></strong><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/forms/form.html" class="sidebar-link"><span>设置选项构建类</span></a><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/forms/option.html" class="sidebar-link"><span>设置选项</span></a><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/forms/post-meta.html" class="sidebar-link"><span>文章元数据</span></a><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/forms/term-meta.html" class="sidebar-link"><span>分类法元数据</span></a><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/forms/user-meta.html" class="sidebar-link"><span>用户元数据</span></a><strong class="sidebar-title"><span>简码</span></strong><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/shortcodes/loop.html" class="sidebar-link"><span>文章循环</span></a><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/shortcodes/list.html" class="sidebar-link"><span>文章标题列表</span></a><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/shortcodes/media.html" class="sidebar-link"><span>图文文章列表</span></a><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/shortcodes/slider.html" class="sidebar-link"><span>幻灯片</span></a><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/shortcodes/page.html" class="sidebar-link"><span>页面内容</span></a><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/shortcodes/element.html" class="sidebar-link"><span>UI 元素</span></a></div></aside></div></div></div><footer id="footer"><div class="wrapper"><div class="inner"><div id="footer-copyright">© 2016<a href="https://www.wpzhiku.com/" target="_blank">WordPress 智库 | Live in China, WordPress Developer</a></div><div id="footer-links"><a href="https://github.com/iwillhappy1314" target="_blank" class="footer-link">Profile</a><a href="https://github.com/iwillhappy1314/wizhi-cms" target="_blank" class="footer-link">Github</a></div></div></div></footer></body></html>
