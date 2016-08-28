@@ -1,199 +1,44 @@
 <!DOCTYPE html><html><head><title>Wizhi CMS 文档</title><link rel="stylesheet" href="http://iwillhappy1314.github.io/wizhi-cms/style.css"><meta name="viewport" content="width=device-width, initial-scale=1"><style>.wrap {
     width: 1200px;
 }
-</style></head><body id="main" data-spy="scroll" data-target="#nav"><header id="header" class="wrapper"><div id="header-inner" class="inner"><h1 id="logo-wrap"><a id="logo" href="/wizhi-cms/">Wizhi CMS</a></h1><nav id="main-nav"><a href="/wizhi-cms/" class="main-nav-link">文档</a><a href="https://github.com/iwillhappy1314/wizhi-cms" class="main-nav-link">代码</a><a target="_blank" href="https://github.com/iwillhappy1314/wizhi-ui" class="main-nav-link">UI 库</a><a target="_blank" href="https://github.com/iwillhappy1314/front" class="main-nav-link">前端工具</a><a target="_blank" href="https://github.com/iwillhappy1314/enter" class="main-nav-link">主题框架</a></nav></div></header><div id="content-wrap"><div id="content" class="wrapper"><div id="content-inner"><article itemscope="" itemtype="http://schema.org/Article" class="article-container"><div class="article-inner"><div class="article"><div class="inner"><header class="article-header"><span>Wizhi CMS 文档</span></header><div itemprop="articleBody" class="article-content"><h2>WizhiFormBuilder 类</h2><p>这是一个比较底层的类, 用来为文章、用户、分类项目等自定义字段提供支持, 当然也可以直接使用这个类构建自定表单。</p>
-<p>WizhiFormBuilder 支持4个参数</p>
+</style></head><body id="main" data-spy="scroll" data-target="#nav"><header id="header" class="wrapper"><div id="header-inner" class="inner"><h1 id="logo-wrap"><a id="logo" href="/wizhi-cms/">Wizhi CMS</a></h1><nav id="main-nav"><a href="/wizhi-cms/" class="main-nav-link">文档</a><a href="https://github.com/iwillhappy1314/wizhi-cms" class="main-nav-link">代码</a><a target="_blank" href="https://github.com/iwillhappy1314/wizhi-ui" class="main-nav-link">UI 库</a><a target="_blank" href="https://github.com/iwillhappy1314/front" class="main-nav-link">前端工具</a><a target="_blank" href="https://github.com/iwillhappy1314/enter" class="main-nav-link">主题框架</a></nav></div></header><div id="content-wrap"><div id="content" class="wrapper"><div id="content-inner"><article itemscope="" itemtype="http://schema.org/Article" class="article-container"><div class="article-inner"><div class="article"><div class="inner"><header class="article-header"><span>Wizhi CMS 文档</span></header><div itemprop="articleBody" class="article-content"><h2>Formbuilder</h2><p>Formbuilder 已改用 WordPress FieldManager 的方案, 请参考文档 <a href="http://fieldmanager.org/docs/">FieldManager</a></p>
+<p>Formbuilder 的数据结构中，很多类型的数据都是以数组的方式保存的，这种方式可能会在获取和更新数据的时候带来一些不便，不过好处在于可以提高性能。</p>
+<h3>字段组</h3><pre><code class="language-php">add_action( &#39;fm_post_post&#39;, function() {
+    $fm = new Fieldmanager_Group( array(
+        &#39;name&#39; =&gt; &#39;demo-group&#39;,
+        &#39;children&#39; =&gt; array(
+            &#39;field-one&#39; =&gt; new Fieldmanager_TextField( &#39;First Field&#39; ),
+            &#39;field-two&#39; =&gt; new Fieldmanager_TextField( &#39;Second Field&#39; ),
+        ),
+    ) );
+    $fm-&gt;add_meta_box( &#39;Basic Group&#39;, array( &#39;post&#39; ) );
+} );
+</code></pre>
+<p>上面的代码中：</p>
 <ul>
-<li>$form_type: 字符串、表单类型, 可能的值为: post_meta、option、term_meta、user_meta</li>
-<li>$fields: 数组, 具体参考下方的示例</li>
-<li>$id: 如果表单类型是post_meta、term_meta 或 user_meta, 需要传入一个数据 ID 才能正确保存和读取数据, 根据数据类型的不同, 这个 ID 也不同</li>
-<li>$args: 数组, 附加参数, 构建各种不同的表单所需的附加参数, 具体在各种表单构建类中介绍</li>
+<li>&#39;name&#39;: 自定子字段组的名称，children 以数组的形式保存为自定义字段。</li>
+<li>array(&#39;post&#39;): 字段支持的自定义文章类型 </li>
 </ul>
-<h2><code>$fields</code> 表单数组示例</h2><p>插件还在积极开发中, 目前没有太多时间写详细的文档, 直接用一个数组演示各种表单类型的添加方法。</p>
-<pre><code class="language-php">$fields = [
-    [
-        &#39;type&#39;   =&gt; &#39;container&#39;,
-        &#39;name&#39;   =&gt; &#39;urlstext&#39;,
-        &#39;label&#39;  =&gt; &#39;表单组&#39;,
-        &#39;size&#39;   =&gt; &#39;80&#39;,
-        &#39;fields&#39; =&gt; [
-            [
-                &#39;type&#39;        =&gt; &#39;text&#39;,
-                &#39;name&#39;        =&gt; &#39;first_name&#39;,
-                &#39;label&#39;       =&gt; &#39;名字&#39;,
-                &#39;size&#39;        =&gt; &#39;80&#39;,
-                &#39;placeholder&#39; =&gt; &#39;请输入名字&#39;,
-            ],
-            [
-                &#39;type&#39;        =&gt; &#39;text&#39;,
-                &#39;name&#39;        =&gt; &#39;second_name&#39;,
-                &#39;label&#39;       =&gt; &#39;姓氏&#39;,
-                &#39;size&#39;        =&gt; &#39;80&#39;,
-                &#39;placeholder&#39; =&gt; &#39;请输入姓氏&#39;,
-            ],
-        ],
-    ],
-    [
-        &#39;type&#39;        =&gt; &#39;text&#39;,
-        &#39;name&#39;        =&gt; &#39;prod_name&#39;,
-        &#39;label&#39;       =&gt; &#39;商品名称&#39;,
-        &#39;size&#39;        =&gt; &#39;80&#39;,
-        &#39;desc&#39;        =&gt; &#39;输入商品的名称,可以适当的加上属性&#39;,
-        &#39;placeholder&#39; =&gt; &#39;商品名称&#39;,
-    ],
-    [
-        &#39;type&#39;        =&gt; &#39;email&#39;,
-        &#39;name&#39;        =&gt; &#39;email&#39;,
-        &#39;label&#39;       =&gt; &#39;联系邮件&#39;,
-        &#39;size&#39;        =&gt; &#39;80&#39;,
-        &#39;placeholder&#39; =&gt; &#39;请输入商品的联系邮件&#39;,
-    ],
-    [
-        &#39;type&#39;        =&gt; &#39;url&#39;,
-        &#39;name&#39;        =&gt; &#39;prod_url&#39;,
-        &#39;label&#39;       =&gt; &#39;网址&#39;,
-        &#39;size&#39;        =&gt; &#39;80&#39;,
-        &#39;placeholder&#39; =&gt; &#39;http://&#39;,
-    ],
-    [
-        &#39;type&#39;        =&gt; &#39;number&#39;,
-        &#39;name&#39;        =&gt; &#39;prod_count&#39;,
-        &#39;label&#39;       =&gt; &#39;库存数量&#39;,
-        &#39;size&#39;        =&gt; &#39;80&#39;,
-        &#39;placeholder&#39; =&gt; &#39;有多少库存&#39;,
-    ],
-    [
-        &#39;type&#39;        =&gt; &#39;date&#39;,
-        &#39;name&#39;        =&gt; &#39;end_date&#39;,
-        &#39;label&#39;       =&gt; &#39;截至日期&#39;,
-        &#39;size&#39;        =&gt; &#39;80&#39;,
-        &#39;placeholder&#39; =&gt; &#39;可以销售到什么时候&#39;,
-    ],
-    [
-        &#39;type&#39;        =&gt; &#39;month&#39;,
-        &#39;name&#39;        =&gt; &#39;prod_month&#39;,
-        &#39;label&#39;       =&gt; &#39;适合月份&#39;,
-        &#39;size&#39;        =&gt; &#39;80&#39;,
-        &#39;placeholder&#39; =&gt; &#39;商品适合在什么月份使用&#39;,
-    ],
-    [
-        &#39;type&#39;        =&gt; &#39;week&#39;,
-        &#39;name&#39;        =&gt; &#39;weeks&#39;,
-        &#39;label&#39;       =&gt; &#39;可用周数&#39;,
-        &#39;size&#39;        =&gt; &#39;80&#39;,
-        &#39;placeholder&#39; =&gt; &#39;商品可以使用多少周&#39;,
-    ],
-
-    [
-        &#39;type&#39;        =&gt; &#39;time&#39;,
-        &#39;name&#39;        =&gt; &#39;send_time&#39;,
-        &#39;label&#39;       =&gt; &#39;发货时间&#39;,
-        &#39;size&#39;        =&gt; &#39;80&#39;,
-        &#39;placeholder&#39; =&gt; &#39;商品发货时间&#39;,
-    ],
-
-    [
-        &#39;type&#39;        =&gt; &#39;datetime-local&#39;,
-        &#39;name&#39;        =&gt; &#39;local_datetime&#39;,
-        &#39;label&#39;       =&gt; &#39;本地时间&#39;,
-        &#39;size&#39;        =&gt; &#39;80&#39;,
-        &#39;placeholder&#39; =&gt; &#39;本地时区的时间&#39;,
-    ],
-
-    [
-        &#39;type&#39;        =&gt; &#39;search&#39;,
-        &#39;name&#39;        =&gt; &#39;search&#39;,
-        &#39;label&#39;       =&gt; &#39;搜索字段&#39;,
-        &#39;size&#39;        =&gt; &#39;80&#39;,
-        &#39;placeholder&#39; =&gt; &#39;可以增加搜索提示&#39;,
-    ],
-    [
-        &#39;type&#39;        =&gt; &#39;editor&#39;,
-        &#39;name&#39;        =&gt; &#39;prod_desc&#39;,
-        &#39;label&#39;       =&gt; &#39;商品简介&#39;,
-        &#39;size&#39;        =&gt; &#39;80&#39;,
-        &#39;placeholder&#39; =&gt; &#39;商品的简单介绍, 不要输入太多&#39;,
-        &#39;attr&#39;        =&gt; [
-            &#39;rows&#39; =&gt; 5,
-            &#39;cols&#39; =&gt; 50,
-        ],
-    ],
-    [
-        &#39;type&#39;        =&gt; &#39;color&#39;,
-        &#39;name&#39;        =&gt; &#39;urls_color&#39;,
-        &#39;label&#39;       =&gt; &#39;商品颜色&#39;,
-        &#39;size&#39;        =&gt; &#39;80&#39;,
-        &#39;placeholder&#39; =&gt; &#39;商品颜色,请直接选择&#39;,
-    ],
-    [
-        &#39;type&#39;        =&gt; &#39;editor&#39;,
-        &#39;name&#39;        =&gt; &#39;prod_detail&#39;,
-        &#39;label&#39;       =&gt; &#39;商品详细信息&#39;,
-        &#39;size&#39;        =&gt; &#39;80&#39;,
-        &#39;placeholder&#39; =&gt; &#39;商品详情, 尽量详细的介绍&#39;,
-        &#39;attr&#39;        =&gt; [
-            &#39;rows&#39; =&gt; 5,
-            &#39;cols&#39; =&gt; 50,
-        ],
-    ],
-    [
-        &#39;type&#39;        =&gt; &#39;upload&#39;,
-        &#39;name&#39;        =&gt; &#39;prod_image&#39;,
-        &#39;label&#39;       =&gt; &#39;商品主图&#39;,
-        &#39;size&#39;        =&gt; &#39;80&#39;,
-        &#39;placeholder&#39; =&gt; &#39;商品的主要图片, 尽量清晰, 具有吸引力&#39;,
-    ],
-    [
-        &#39;type&#39;        =&gt; &#39;editor&#39;,
-        &#39;name&#39;        =&gt; &#39;prod_intro&#39;,
-        &#39;label&#39;       =&gt; &#39;使用说明&#39;,
-        &#39;size&#39;        =&gt; &#39;80&#39;,
-        &#39;placeholder&#39; =&gt; &#39;商品使用说明, 语言尽量简洁&#39;,
-        &#39;attr&#39;        =&gt; [
-            &#39;rows&#39; =&gt; 5,
-            &#39;cols&#39; =&gt; 50,
-        ],
-    ],
-    [
-        &#39;type&#39;    =&gt; &#39;checkbox&#39;,
-        &#39;name&#39;    =&gt; &#39;is_deliver&#39;,
-        &#39;label&#39;   =&gt; &#39;是否发货&#39;,
-        &#39;size&#39;    =&gt; &#39;80&#39;,
-    ],
-    [
-        &#39;type&#39;    =&gt; &#39;multi-checkbox&#39;,
-        &#39;name&#39;    =&gt; &#39;pay_method&#39;,
-        &#39;label&#39;   =&gt; &#39;支付方式&#39;,
-        &#39;size&#39;    =&gt; &#39;80&#39;,
-        &#39;options&#39; =&gt; [
-            &#39;4&#39; =&gt; &#39;微信&#39;,
-            &#39;5&#39; =&gt; &#39;支付宝&#39;,
-        ],
-    ],
-    [
-        &#39;type&#39;    =&gt; &#39;radio&#39;,
-        &#39;name&#39;    =&gt; &#39;pod&#39;,
-        &#39;label&#39;   =&gt; &#39;是否支持货到付款&#39;,
-        &#39;size&#39;    =&gt; &#39;80&#39;,
-        &#39;default&#39; =&gt; &#39;1&#39;,
-        &#39;options&#39; =&gt; [
-            &#39;1&#39; =&gt; &#39;支持&#39;,
-            &#39;2&#39; =&gt; &#39;不支持&#39;,
-        ],
-    ],
-    [
-        &#39;type&#39;    =&gt; &#39;select&#39;,
-        &#39;name&#39;    =&gt; &#39;content_type&#39;,
-        &#39;label&#39;   =&gt; &#39;文章类型&#39;,
-        &#39;default&#39; =&gt; &#39;post&#39;,
-        &#39;options&#39; =&gt; wizhi_get_post_types(),
-    ],
-    [
-        &#39;type&#39;    =&gt; &#39;select&#39;,
-        &#39;name&#39;    =&gt; &#39;thumb_size&#39;,
-        &#39;label&#39;   =&gt; &#39;缩略图大小&#39;,
-        &#39;default&#39; =&gt; &#39;full&#39;,
-        &#39;options&#39; =&gt; wizhi_get_image_sizes(),
-    ],
-];
+<h3>带标签的自定义字段盒子</h3><pre><code class="language-php">add_action( &#39;fm_post_post&#39;, function() {
+    $fm = new Fieldmanager_Group( array(
+        &#39;name&#39;           =&gt; &#39;tabbed_meta_fields&#39;,
+        &#39;tabbed&#39;         =&gt; &#39;vertical&#39;,
+        &#39;children&#39;       =&gt; array(
+            &#39;tab-1&#39; =&gt; new Fieldmanager_Group( array(
+                &#39;label&#39;          =&gt; &#39;First Tab&#39;,
+                &#39;children&#39;       =&gt; array(
+                    &#39;text&#39; =&gt; new Fieldmanager_Textfield( &#39;Text Field&#39; ),
+                )
+            ) ),
+            &#39;tab-2&#39; =&gt; new Fieldmanager_Group( array(
+                &#39;label&#39;          =&gt; &#39;Second Tab&#39;,
+                &#39;children&#39;       =&gt; array(
+                    &#39;textarea&#39; =&gt; new Fieldmanager_TextArea( &#39;TextArea&#39; ),
+                    &#39;media&#39;    =&gt; new Fieldmanager_Media( &#39;Media File&#39; ),
+                )
+            ) ),
+        )
+    ) );
+    $fm-&gt;add_meta_box( &#39;Tabbed Group&#39;, &#39;post&#39; );
+} );
 </code></pre></div></div></div></div></article><aside id="sidebar" role="navigation"><div class="inner"><strong class="sidebar-title"><span>文章类型/分类法</span></strong><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/types.html" class="sidebar-link"><span>文章类型</span></a><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/taxonomy.html" class="sidebar-link"><span>分类方法</span></a><strong class="sidebar-title"><span>ORM</span></strong><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/orm.html" class="sidebar-link"><span>RedbeanPHP ORM</span></a><strong class="sidebar-title"><span>路由</span></strong><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/router.html" class="sidebar-link"><span>路由系统</span></a><strong class="sidebar-title"><span>辅助函数</span></strong><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/helper/options.html" class="sidebar-link"><span>表单选项</span></a><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/helper/template.html" class="sidebar-link"><span>模板函数</span></a><strong class="sidebar-title"><span>表单构建类</span></strong><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/forms/form.html" class="sidebar-link"><span>设置选项构建类</span></a><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/forms/option.html" class="sidebar-link"><span>设置选项</span></a><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/forms/post-meta.html" class="sidebar-link"><span>文章元数据</span></a><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/forms/term-meta.html" class="sidebar-link"><span>分类法元数据</span></a><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/forms/user-meta.html" class="sidebar-link"><span>用户元数据</span></a><strong class="sidebar-title"><span>简码</span></strong><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/shortcodes/loop.html" class="sidebar-link"><span>文章循环</span></a><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/shortcodes/list.html" class="sidebar-link"><span>文章标题列表</span></a><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/shortcodes/media.html" class="sidebar-link"><span>图文文章列表</span></a><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/shortcodes/slider.html" class="sidebar-link"><span>幻灯片</span></a><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/shortcodes/page.html" class="sidebar-link"><span>页面内容</span></a><a href="http://iwillhappy1314.github.io/wizhi-cms/docs/shortcodes/element.html" class="sidebar-link"><span>UI 元素</span></a></div></aside></div></div></div><footer id="footer"><div class="wrapper"><div class="inner"><div id="footer-copyright">© 2016<a href="https://www.wpzhiku.com/" target="_blank">WordPress 智库 | Live in China, WordPress Developer</a></div><div id="footer-links"><a href="https://github.com/iwillhappy1314" target="_blank" class="footer-link">Profile</a><a href="https://github.com/iwillhappy1314/wizhi-cms" target="_blank" class="footer-link">Github</a></div></div></div></footer></body></html>
